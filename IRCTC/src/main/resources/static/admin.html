@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Admin Dashboard</title>
+  <link href="styles.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+  <h1>IRCTC Admin</h1>
+  <nav>
+    <button onclick="logout()">Logout</button>
+  </nav>
+</header>
+
+<main class="container">
+  <div class="tabs">
+    <button class="active" onclick="tab('stations',this)">Stations</button>
+    <button onclick="tab('trains',this)">Trains</button>
+    <button onclick="tab('schedules',this)">Schedules</button>
+    <button onclick="tab('coaches',this)">Coaches</button>
+    <button onclick="tab('seats',this)">Seats</button>
+    <button onclick="tab('routes',this)">Routes</button>
+  </div>
+
+  <!-- Stations -->
+  <section class="section active" id="stations">
+    <div class="card">
+      <h2>Stations</h2>
+      <form onsubmit="createStation(event)">
+        <div class="form-grid">
+          <input id="scCode" placeholder="Code" required/>
+          <input id="scName" placeholder="Name" required/>
+          <input id="scCity" placeholder="City" required/>
+          <input id="scState" placeholder="State" required/>
+        </div>
+        <div class="actions">
+          <button class="green" type="submit">Add Station</button>
+        </div>
+        <p id="stationMsg"></p>
+      </form>
+      <table>
+        <thead>
+        <tr><th>ID</th><th>Code</th><th>Name</th><th>City</th><th>State</th><th></th></tr>
+        </thead>
+        <tbody id="stationTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Trains -->
+  <section class="section" id="trains">
+    <div class="card">
+      <h2>Trains</h2>
+      <form onsubmit="createTrain(event)">
+        <div class="form-grid">
+          <input id="trNo" placeholder="Train No" required/>
+          <input id="trName" placeholder="Train Name" required/>
+          <input id="trDistance" placeholder="Distance (km)" type="number"/>
+          <div>
+            <label>Source Station</label>
+            <select id="sourceId" required></select>
+          </div>
+          <div>
+            <label>Destination Station</label>
+            <select id="destId" required></select>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="green" type="submit">Add Train</button>
+        </div>
+        <p id="trainMsg"></p>
+      </form>
+      <table>
+        <thead>
+        <tr><th>ID</th><th>Train No</th><th>Name</th><th>Distance</th><th>Route</th><th></th></tr>
+        </thead>
+        <tbody id="trainTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Schedules -->
+  <section class="section" id="schedules">
+    <div class="card">
+      <h2>Schedules</h2>
+      <form onsubmit="createSchedule(event)">
+        <div class="form-grid">
+          <div>
+            <label>Train</label>
+            <select id="trainId" required></select>
+          </div>
+          <div>
+            <label>Run Date</label>
+            <input id="runDate" required type="date"/>
+          </div>
+          <input id="runSeats" placeholder="Available Seats" required type="number"/>
+        </div>
+        <div class="actions">
+          <button class="green" type="submit">Add Schedule</button>
+        </div>
+        <p id="scheduleMsg"></p>
+      </form>
+      <table>
+        <thead>
+        <tr><th>ID</th><th>Train</th><th>Run Date</th><th>Available Seats</th><th></th></tr>
+        </thead>
+        <tbody id="scheduleTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Coaches -->
+  <section class="section" id="coaches">
+    <div class="card">
+      <h2>Coaches</h2>
+      <form onsubmit="createCoach(event)">
+        <div class="form-grid">
+          <input id="coachSchedule" placeholder="Schedule ID" required type="number"/>
+          <select id="coachType" required>
+            <option value="FIRST_AC">FIRST_AC</option>
+            <option value="SECOND_AC">SECOND_AC</option>
+            <option value="THIRD_AC">THIRD_AC</option>
+            <option value="SLEEPER">SLEEPER</option>
+            <option value="GENERAL">GENERAL</option>
+          </select>
+          <input id="coachNumber" placeholder="Coach Number" required type="number"/>
+          <input id="totalSeats" placeholder="Total Seats" required type="number"/>
+          <input id="coachPrice" placeholder="Price" required type="number"/>
+        </div>
+        <div class="actions">
+          <button class="green" type="submit">Add Coach</button>
+        </div>
+        <p id="coachMsg"></p>
+      </form>
+      <table>
+        <thead>
+        <tr><th>ID</th><th>Schedule</th><th>Coach</th><th>Total Seats</th><th>Available</th><th>Price</th><th></th></tr>
+        </thead>
+        <tbody id="coachTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Seats -->
+  <section class="section" id="seats">
+    <div class="card">
+      <h2>Seats</h2>
+      <form onsubmit="createSeat(event)">
+        <div class="form-grid">
+          <input id="seatNumber" placeholder="Seat Number" required type="number"/>
+          <input id="seatSchedule" placeholder="Schedule ID" required type="number"/>
+          <input id="seatCoachId" placeholder="Coach ID" required type="number"/>
+          <select id="berthType" required>
+            <option value="LOWER">LOWER</option>
+            <option value="MIDDLE">MIDDLE</option>
+            <option value="UPPER">UPPER</option>
+            <option value="SIDE_LOWER">SIDE_LOWER</option>
+            <option value="SIDE_UPPER">SIDE_UPPER</option>
+          </select>
+          <input id="seatPrice" placeholder="Price" required type="number"/>
+        </div>
+        <div class="actions">
+          <button class="green" type="submit">Add Seat</button>
+        </div>
+        <p id="seatAdminMsg"></p>
+      </form>
+      <table>
+        <thead>
+        <tr><th>ID</th><th>Seat No</th><th>Coach</th><th>Schedule</th><th>Berth</th><th>Available</th><th>Price</th><th></th></tr>
+        </thead>
+        <tbody id="seatTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Routes -->
+  <section class="section" id="routes">
+    <div class="card">
+      <h2>Routes</h2>
+      <form onsubmit="createRoute(event)">
+        <div class="form-grid">
+          <div>
+            <label>Train</label>
+            <select id="routeTrainId" required></select>
+          </div>
+          <div>
+            <label>Station</label>
+            <select id="routeStationId" required></select>
+          </div>
+          <div>
+            <label>Departure Time</label>
+            <input id="dep" type="time"/>
+          </div>
+          <div>
+            <label>Arrival Time</label>
+            <input id="arr" type="time"/>
+          </div>
+          <input id="halt" placeholder="Halt (minutes)" type="number"/>
+          <input id="routeDistance" placeholder="Distance (km)" type="number"/>
+          <input id="stationOrder" placeholder="Station Order" required type="number"/>
+        </div>
+        <div class="actions">
+          <button class="green" type="submit">Add Route</button>
+        </div>
+        <p id="routeMsg"></p>
+      </form>
+      <table>
+        <thead>
+        <tr><th>ID</th><th>Train</th><th>Station</th><th>Arrival</th><th>Departure</th><th>Order</th><th></th></tr>
+        </thead>
+        <tbody id="routeTable"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <title>User Dashboard</title>
+  <link href="styles.css" rel="stylesheet"/>
+ </head>
+
+ <body>
+  <header>
+   <h1>IRCTC Practice</h1>
+   <nav>
+    <span id="userName">
+    </span>
+    <button onclick="logout()">Logout</button>
+   </nav>
+  </header>
+  <main class="container">
+   <div class="card">
+    <h2>Search Trains</h2>
+    <form onsubmit="searchTrains(event)">
+     <div class="form-grid">
+      <div>
+       <label>From</label>
+       <select id="source" required=""></select>
+      </div>
+      <div>
+       <label>To</label>
+       <select id="destination" required=""></select>
+      </div>
+      <div>
+       <label>Journey Date</label>
+       <input id="journeyDate" required="" type="date"/>
+      </div>
+     </div>
+     <div class="actions">
+      <button class="green">Search</button>
+     </div>
+     <p id="searchMsg"></p>
+    </form>
+   </div>
+   <div id="results"></div>
+   <div class="card hidden" id="bookingBox">
+    <h2 id="bookingTitle">Select seats</h2>
+    <div id="seats"></div>
+    <p id="seatMsg"></p>
+    <div id="passengers"></div>
+    <button class="green" onclick="book()">Book Ticket</button>
+   </div>
+   <div class="card">
+    <h2>My Tickets</h2>
+    <div id="tickets"></div>
+   </div>
+  </main>
+  <script src="js/api.js"></script>
+  <script src="js/user.js"></script>
+ </body>
+</html>

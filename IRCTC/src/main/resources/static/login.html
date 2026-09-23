@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8"/>
+ <title>User Login</title>
+ <link href="styles.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+ <h1>IRCTC Practice</h1>
+ <nav>
+  <a href="index.html">Home</a>
+  <a href="register.html">Register</a>
+ </nav>
+</header>
+<main class="container">
+ <div class="card" style="max-width:450px;margin:auto">
+  <h2>User Login</h2>
+  <form id="loginForm" onsubmit="login(event)">
+   <label>Email</label>
+   <input id="username" required type="email"/>
+   <label>Password</label>
+   <input id="password" required type="password"/>
+   <div class="actions">
+    <button class="green" type="submit">User Login</button>
+   </div>
+   <p id="msg"></p>
+  </form>
+  <!-- Shown only after a successful login for an account that has BOTH roles (e.g. an account like "sahil" with ROLE_ADMIN and ROLE_NORMAL) -->
+  <div class="hidden" id="portalChoice">
+   <p>Welcome<span id="welcomeName"></span>! This account has both user and admin access. Where would you like to go?</p>
+   <div class="actions">
+    <button class="btn green" onclick="goToUser()" type="button">👤 User Dashboard</button>
+    <button class="btn admin" onclick="goToAdmin()" type="button">🛡️ Admin Panel</button>
+   </div>
+  </div>
+  <!-- Admin login link -->
+  <div class="actions">
+   <a class="btn admin" href="admin-login.html">🛡️ Admin Login</a>
+  </div>
+ </div>
+</main>
+<script src="js/api.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>
